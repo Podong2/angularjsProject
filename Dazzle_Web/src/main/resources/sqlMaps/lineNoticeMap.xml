@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.LineNoticeDAO">
+  <!-- 한줄공지 쓰기 -->
+  <insert id="inserNotice" parameterType="lineNoticeEntity">
+	{call ProcAddNotice( #{lineNoticeContents}, #{startDate}, #{endDate} )}
+  </insert>
+
+  <!-- 한줄공지 목록 개수 -->
+  <select id="selectLineNoticeListCount" resultType="int">
+	{call ProcGetLineNoticeListCount( )}
+  </select>
+
+  <!-- 한줄공지 목록 -->
+  <select id="selectLineNoticeList" parameterType="lineNoticeEntity" resultType="lineNoticeEntity">
+	{call ProcGetLineNoticeList( #{currentPage}, #{pageGroupSize} )}
+  </select>
+
+  <!-- 한줄공지 정보 -->
+  <select id="selectLineNotice" resultType="lineNoticeEntity">
+	{call ProcGetLineNotice( )}
+  </select>
+
+   <!-- 한줄공지 정보(관리자) -->
+  <select id="selectLineNoticeInfo" parameterType="long" resultType="lineNoticeEntity">
+	{call ProcGetLineNoticeInfo(#{lineNoticeKey})}
+  </select>
+
+   <!-- 한줄공지 수정 -->
+  <update id="updateLineNotice" parameterType="lineNoticeEntity">
+  	{call ProcUpdateLineNotice(#{lineNoticeKey}, #{lineNoticeContents}, #{startDate}, #{endDate})}
+  </update>
+  
+   <!-- 한줄공지 삭제 -->
+  <update id="deleteLineNotice" parameterType="long">
+	{call ProcDeleteLineNotice(#{lineNoticeKey})}
+  </update>
+</mapper>

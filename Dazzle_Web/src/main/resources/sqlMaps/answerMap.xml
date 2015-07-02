@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.AnswerDAO">
+	<!-- 답글 리스트 카운트 -->
+	<select id="selectAnswerListCount" parameterType="answerEntity" resultType="long">
+		{call ProcGetAnswerListCount( #{questionKey} )}
+	</select>
+
+	<!-- 답글 리스트 -->
+	<select id="selectAnswerList" parameterType="answerEntity" resultType="answerEntity">
+		{call ProcGetAnswerList( #{questionKey}, #{userKey}, #{currentPage}, #{pageGroupSize} )}
+	</select>
+
+	<!-- 내 답글 리스트 카운트 -->
+	<select id="selectAnswerListByUserKeyCount" parameterType="long" resultType="long">
+		{call ProcGetAnswerListByUserKeyCount( #{userKey} )}
+	</select>
+
+	<!-- 내 답글 리스트 -->
+	<select id="selectAnswerListByUserKey" parameterType="answerEntity" resultType="answerEntity">
+		{call ProcGetAnswerListByUserKey( #{userKey}, #{currentPage}, #{pageGroupSize} )}
+	</select>
+
+	<!-- 답글 등록자 리스트 -->
+	<select id="selectAnswerUserListByQuestionKey" parameterType="long" resultType="answerEntity">
+		{call ProcGetAnswerUserListByQuestionKey( #{questionKey} )}
+	</select>
+
+	<!-- 신고 대상 답글 리스트 -->
+	<select id="selectReportAnswerList" parameterType="answerEntity" resultType="answerEntity">
+		{call ProcGetReportAnswerList( #{questionKey}, #{userKey} )}
+	</select>
+
+	<!-- 답글 등록 -->
+	<insert id="insertAnswer" parameterType="answerEntity">
+		{call ProcAddAnswer( #{userKey}, #{questionKey}, #{answerContents} )}
+		<selectKey keyProperty="answerKey" resultType="long" order="AFTER">
+			SELECT @@IDENTITY
+		</selectKey>
+	</insert>
+
+	<!-- 답글 삭제 -->
+	<update id="deleteAnswer" parameterType="long">
+		{call ProcRemoveAnswer( #{answerKey} )}
+	</update>
+
+	<!-- 답글 채택 -->
+	<update id="updateChooseAnswer" parameterType="answerEntity">
+		{call ProcUpdateChooseAnswer( #{chooseType}, #{chooseKey}, #{answerKey} )}
+	</update>
+
+	<!-- 답글 채택 취소 -->
+	<update id="updateChooseCancelAnswer" parameterType="answerEntity">
+		{call ProcUpdateChooseCancelAnswer( #{chooseType}, #{answerKey} )}
+	</update>
+</mapper>

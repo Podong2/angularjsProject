@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.PushSettingDao">
+	<insert id="insertPushSetting" parameterType="kr.co.chunjae.entities.PushSettingEntity">
+	    { call ProcAddPushSetting(#{userKey}, #{deviceToken}, #{platform})}
+    </insert>
+	<update id="updatePushSetting" parameterType="kr.co.chunjae.entities.PushSettingEntity">
+	    { call ProcUpDatePushSetting(#{pushActive}, #{inActiveTime}, #{inActiveTimeStart}, #{inActiveTimeEnd}, #{deviceToken})}
+    </update>
+	<delete id="deletePushSetting" parameterType="java.lang.Long">
+		{ call ProcDeletePushSetting(#{pushSettingKey})}
+	</delete>
+	<select id="getPushSetting" parameterType="string" resultType="kr.co.chunjae.entities.PushSettingEntity">
+		{ call ProcGetPushSetting(#{deviceToken})}
+	</select>
+	<select id="getAllTargetDevices" parameterType="java.lang.String" resultType="java.lang.String">
+	    { call ProcGetAllTargetDevices(#{platform})}
+    </select>
+	<select id="getQuestionWriterDevices" parameterType="java.lang.Long" resultType="kr.co.chunjae.entities.PushSettingEntity">
+	    { call ProcGetQuestionWriterDevices(#{questionKey})}
+    </select>
+	<select id="getAnswerWriterDevices" parameterType="java.lang.Long" resultType="kr.co.chunjae.entities.PushSettingEntity">
+	    { call ProcGetAnswerWriterDevices(#{answerKey})}
+    </select>
+	<select id="getGroupDevices" parameterType="java.lang.Long" resultType="kr.co.chunjae.entities.PushSettingEntity">
+		{ call ProcGetGroupDevices(#{groupKey})}
+	</select>
+</mapper>
+

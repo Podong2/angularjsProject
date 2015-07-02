@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.RankingDAO">
+
+	<!-- 개인랭킹(누적) -->
+    <select id="selectUserRanking" resultType="rankingEntity">
+		{call ProcGetUserRanking()}
+    </select>
+
+	<!-- 그룹랭킹(누적) -->
+    <select id="selectGroupRanking" resultType="rankingEntity">
+		{call ProcGetGroupRanking()}
+    </select>
+
+    <!-- 월별 날짜 가져오기 (이전 6개월)-->
+	<select id="selectMonthDateList" resultType="rankingEntity">
+		{call ProcGetMonthDateList()}
+	</select>
+
+	<!-- 개인랭킹(월별) -->
+    <select id="selectMonthUserRanking" resultType="rankingEntity">
+		{call ProcGetMonthUserRanking(#{rankingDate})}
+    </select>
+
+	<!-- 그룹랭킹(월별) -->
+    <select id="selectMonthGroupRanking" resultType="rankingEntity">
+		{call ProcGetMonthGroupRanking(#{rankingDate})}
+    </select>
+</mapper>

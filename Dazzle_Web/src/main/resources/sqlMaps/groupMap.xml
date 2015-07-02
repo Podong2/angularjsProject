@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.GroupDAO">
+  <!-- 그룹 목록 카운트 -->
+  <select id="selectGroupListCount" parameterType="groupEntity" resultType="long">
+    {call ProcGetGroupListCount( #{memberStateCode}, #{startDate}, #{endDate},
+                                            #{groupTypeCode}, #{searchKey}, #{searchValue} )}
+  </select>
+
+  <!-- 그룹 목록 -->
+  <select id="selectGroupList" parameterType="groupEntity" resultType="groupEntity">
+    {call ProcGetGroupList( #{memberStateCode}, #{startDate}, #{endDate},
+                                            #{groupTypeCode}, #{searchKey}, #{searchValue},
+                                            #{sortBy}, #{sortOrder}, #{currentPage}, #{pageGroupSize} )}
+  </select>
+
+  <!-- 내그룹 목록 -->
+  <select id="selectGroupListByUserKey" parameterType="groupMemberEntity" resultType="groupEntity">
+    {call ProcGetGroupListByUserKey( #{userKey}, #{scrapBoardKey}, #{memberStateCode} )}
+  </select>
+
+  <!-- 내그룹 목록 (모바일 그룹게시판)-->
+  <select id="selectMyGroupList" parameterType="groupMemberEntity" resultType="groupEntity">
+    {call ProcGetMyGroupList( #{userKey}, #{currentPage}, #{pageGroupSize} )}
+  </select>
+
+  <!-- 그룹 정보 -->
+  <select id="selectGroup" parameterType="long" resultType="groupEntity">
+    {call ProcGetGroup( #{groupKey} )}
+  </select>
+
+  <!-- 그룹 삭제 -->
+  <update id="deleteGroup" parameterType="long">
+    {call ProcRemoveGroup( #{groupKey} )}
+  </update>
+
+  <!-- 내그룹 승인대기 목록 가입취소 하기 -->
+  <update id="updateGroupJoinCencle" parameterType="groupEntity">
+ 	{call ProcUpdateGroupJoinCancle( #{groupKey}, #{userKey} )}
+  </update>
+
+  <!-- 그룹 찾기 -->
+  <select id="searchGroupList" parameterType="groupMemberEntity" resultType="groupEntity">
+	{call ProcGetGroupSearchList( #{searchValue}, #{currentPage}, #{pageGroupSize} )}
+  </select>
+
+  <!-- 그룹만들기 -->
+  <insert id="insertGroup" parameterType="groupEntity">
+	{call procAddGroup( #{groupName}, #{groupTypeCode}, #{groupColor}, #{groupCoverLine} )}
+    <selectKey keyProperty="groupKey" resultType="long" order="AFTER">
+      SELECT @@IDENTITY
+    </selectKey>
+  </insert>
+
+  <!-- 그룹 가입하기 -->
+  <insert id="insertGroupJoin" parameterType="groupMemberEntity">
+  	{call ProcAddGroupJoin(#{groupKey}, #{userKey}, #{memberStateCode})}
+  </insert>
+
+  <!-- 그룹 재가입하기 -->
+  <update id="updateJoinGroupMember" parameterType="groupMemberEntity">
+	{call ProcUpdateGroupJoin(#{groupKey}, #{userKey}, #{memberStateCode})}
+  </update>
+
+  <!-- 그룹 정보 수정 -->
+  <update id="updateGroup" parameterType="groupEntity">
+	{call ProcUpdateGroup(#{groupKey}, #{groupCoverLine}, #{groupName}, #{groupTypeCode}, #{groupColor})}
+  </update>
+
+  <!-- 질문글의 스크랩 된 그룹목록 가져오기 -->
+  <select id="selectScrapMyGroupList" parameterType="activityLogEntity" resultType="groupEntity">
+ 	{call ProcGetScrapMyGroupList(#{userKey}, #{commonKey})}
+  </select>
+
+</mapper>

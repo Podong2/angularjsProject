@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.AnswerReplyDAO">
+    <!-- 답글 댓글 등록 -->
+    <insert id="insertAnswerReply" parameterType="answerReplyEntity">
+		{call ProcAddAnswerReply( #{answerKey}, #{userKey}, #{answerReplyContents} )}
+	</insert>
+
+    <!-- 답글 댓글 수정 -->
+    <update id="updateAnswerReply" parameterType="answerReplyEntity">
+		{call ProcUpdateAnswerReply( #{answerReplyKey}, #{answerReplyContents} )}
+	</update>
+
+    <!-- 답글 댓글 삭제 -->
+    <update id="deleteAnswerReply" parameterType="long">
+		{call ProcRemoveAnswerReply( #{answerReplyKey} )}
+	</update>
+
+    <!-- 답글 댓글 정보 -->
+    <select id="selectAnswerReply" parameterType="long" resultType="answerReplyEntity">
+        {call ProcGetAnswerReply( #{answerReplyKey} )}
+    </select>
+
+    <!-- 답글 댓글 리스트 -->
+    <select id="selectAnswerReplyList" parameterType="long" resultType="answerReplyEntity">
+		{call ProcGetAnswerReplyList( #{answerKey} )}
+	</select>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.FranchiseDAO">
+
+    <!-- 프랜차이즈 인증 (공부방) -->
+    <select id="confirmFranchiseEHB" parameterType="franchiseEntity" resultType="int">
+		SELECT
+			Count(*)
+		FROM
+			[192.168.100.101].EHB2007.dbo.Student
+		WHERE
+			HakbunID = #{HakbunID}
+		AND Name = #{Name}
+		AND Status = '00'
+	</select>
+
+	<!-- 프랜차이즈 인증 (셀파) -->
+	<select id="confirmFranchiseSP" parameterType="franchiseEntity" resultType="int">
+		SELECT
+			Count(*)
+		FROM
+			[192.168.100.101].SPMath.dbo.Student
+		WHERE
+			HakbunID = #{HakbunID}
+		AND Name = #{Name}
+		AND Status = '00'
+	</select>
+
+</mapper>

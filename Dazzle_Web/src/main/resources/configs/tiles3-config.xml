@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+		"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- 관리자 로그인 -->
+	<definition name="adminloginDef" template="/WEB-INF/pages/layouts/loginTemplate.jsp">
+		<put-attribute name="body" value="/WEB-INF/pages/layouts/body.jsp" />
+	</definition>
+	<!-- 관리자 상세 -->
+	<definition name="adminDef" template="/WEB-INF/pages/layouts/mainTemplate.jsp">
+		<put-attribute name="header" value="/WEB-INF/pages/layouts/header.jsp" />
+		<put-attribute name="left" value="/WEB-INF/pages/layouts/left.jsp" />
+		<put-attribute name="body" value="/WEB-INF/pages/layouts/body.jsp" />
+	</definition>
+	<!-- 팝업 -->
+	<definition name="popupDef" template="/WEB-INF/pages/layouts/popupTemplate.jsp">
+		<put-attribute name="body" value="/WEB-INF/pages/layouts/body.jsp" />
+	</definition>
+	<!-- 엑셀 -->
+	<definition name="excelDef" template="/WEB-INF/pages/layouts/excel.jsp">
+		<put-attribute name="body" value="/WEB-INF/pages/layouts/body.jsp" />
+	</definition>
+	
+	<definition name="login" extends="adminloginDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/login.jsp" />
+	</definition>
+	
+	<definition name="admin/password" extends="adminDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/password.jsp" />
+	</definition>
+	
+	<definition name="user/*" extends="adminDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/user/{1}.jsp" />
+	</definition>
+	
+	<definition name="group/*" extends="adminDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/group/{1}.jsp" />
+	</definition>
+	
+	<definition name="question/*" extends="adminDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/question/{1}.jsp" />
+	</definition>
+	
+	<definition name="report/*" extends="adminDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/report/{1}.jsp" />
+	</definition>
+	
+	<definition name="setting/*" extends="adminDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/setting/{1}.jsp" />
+	</definition>
+	
+	<definition name="board/*" extends="adminDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/board/{1}.jsp" />
+	</definition>
+	
+	<definition name="statistics/*" extends="adminDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/statistics/{1}.jsp" />
+	</definition>
+	
+	<definition name="popup/*" extends="popupDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/popup/{1}.jsp" />
+	</definition>
+	
+	<definition name="excel/*" extends="excelDef">
+		<put-attribute name="body" value="/WEB-INF/pages/views/excel/{1}.jsp" />
+	</definition>
+</tiles-definitions>

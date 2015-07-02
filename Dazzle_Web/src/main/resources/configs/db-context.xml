@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="#{dbConfig['db_driver']}" />
+    <property name="url" value="#{dbConfig['url']}" />
+    <property name="username" value="#{dbConfig['username']}" />
+    <property name="password" value="#{dbConfig['password']}" />
+    <property name="validationQuery" value="select 1" />
+  </bean>
+
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+
+  <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+  <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="configLocation" value="classpath:configs/sqlMapConfig.xml" />
+    <property name="mapperLocations" value="classpath:sqlMaps/**/*.xml" />
+  </bean>
+
+  <bean id="UserDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.chunjae.dao.UserDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="groupDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.chunjae.dao.GroupDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="groupMemberDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.chunjae.dao.GroupMemberDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="commonCodeDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.chunjae.dao.CommonCodeDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="settingDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.chunjae.dao.SettingDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="questionDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.chunjae.dao.QuestionDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="answerDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.chunjae.dao.AnswerDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="answerReplyDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+    <property name="mapperInterface" value="kr.co.chunjae.dao.AnswerReplyDAO" />
+    <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="lineTalkDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.LineTalkDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="activityLogDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.ActivityLogDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="activityScoreDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.ActivityScoreDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="gradeScoreDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.GradeScoreDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="boardDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.BoardDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+  </bean>
+
+   <bean id="classCodeDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.ClassCodeDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+   </bean>
+
+   <bean id="reportDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.ReportDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+   </bean>
+
+   <bean id="reportMemoDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.ReportMemoDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+   </bean>
+
+   <bean id="attachDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.AttachDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+   </bean>
+
+   <bean id="lineNoticeDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.LineNoticeDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+   </bean>
+
+   <bean id="likeDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.LikeDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+   </bean>
+
+   <bean id="scrapDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.ScrapDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+   </bean>
+
+   <bean id="smsSendDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.SmsSendDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+   </bean>
+
+   <bean id="franchiseDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.FranchiseDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+   </bean>
+	<bean id="groupInviteDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="kr.co.chunjae.dao.GroupInviteDao" />
+		<property name="sqlSessionFactory" ref="sessionFactory" />
+	</bean>
+   <bean id="statisticsDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+     <property name="mapperInterface" value="kr.co.chunjae.dao.StatisticsDAO" />
+     <property name="sqlSessionFactory" ref="sessionFactory" />
+   </bean>
+
+	<bean id="pushSettingDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="kr.co.chunjae.dao.PushSettingDao" />
+		<property name="sqlSessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="rankingDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="kr.co.chunjae.dao.RankingDAO" />
+		<property name="sqlSessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

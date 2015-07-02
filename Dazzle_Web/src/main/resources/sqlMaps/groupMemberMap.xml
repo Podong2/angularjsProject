@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.GroupMemberDAO">
+	<!-- 멤버 목록 카운트 -->
+	<select id="selectGroupMemberListCount" parameterType="groupMemberEntity" resultType="long">
+    {call ProcGetGroupMemberListCount( #{groupKey}, #{memberStateCode})}
+  </select>
+
+	<!-- 멤버 목록 -->
+	<select id="selectGroupMemberList" parameterType="groupMemberEntity" resultType="groupMemberEntity">
+    {call ProcGetGroupMemberList( #{groupKey}, #{sortBy}, #{sortOrder},
+    										 #{currentPage}, #{pageGroupSize}, #{memberStateCode})}
+  </select>
+
+	<!-- 멤버 목록(모바일) -->
+	<select id="selectMyGroupMemberList" parameterType="groupMemberEntity" resultType="groupMemberEntity">
+    {call ProcGetMyGroupMemberList( #{groupKey}, #{currentPage}, #{pageGroupSize} )}
+  </select>
+
+	<!-- 그룹멤버 가입상태 변경 -->
+	<update id="updateGroupMemberJoinState" parameterType="groupMemberEntity">
+	{call ProcUpdateGroupMemberJoinState( #{memberStateCode}, #{groupKey}, #{userKey} )}
+  </update>
+
+	<!-- 그룹멤버 공동리더 수정 -->
+	<update id="updateMyGroupMember" parameterType="groupMemberEntity">
+	{call ProcUpdateGroupMemberType( #{groupKey}, #{userKey}, #{memberTypeCode} )}
+  </update>
+
+	<!-- 그룹멤버 공동리더 수정 -->
+	<update id="updateMemberGeneral" parameterType="groupMemberEntity">
+	{call ProcUpdateGroupMemberGeneral( #{groupKey} )}
+  </update>
+
+	<!-- 그룹멤버 리더 변경 -->
+	<update id="updateMemberLeader" parameterType="groupMemberEntity">
+	{call ProcUpdateGroupMemberLeader( #{groupKey}, #{userKey} )}
+  </update>
+
+	<!-- 그룹리더 등록 -->
+	<insert id="insertGroupLeader" parameterType="groupEntity">
+  	{call procAddGroupLeader(#{groupKey}, #{userKey})}
+  </insert>
+
+	<!-- 그룹 탈퇴하기 -->
+	<update id="groupWidthDraw" parameterType="groupMemberEntity">
+	{call ProcUpdateGroupWidthDraw(#{groupKey}, #{userKey})}
+  </update>
+	<update id="changePushState" parameterType="groupMemberEntity">
+		{call ProcChangePushState(#{userKey}, #{groupKey}, #{groupPushActive})}
+	</update>
+
+	<!-- 그룹 멤버목록 찾기 -->
+	<select id="searchGroupMemberList" parameterType="groupMemberEntity" resultType="groupMemberEntity">
+    {call ProcGetSearchGroupMemberList( #{groupKey}, #{sortBy}, #{sortOrder},
+    										 #{currentPage}, #{pageGroupSize}, #{memberStateCode}, #{searchValue})}
+  </select>
+	<!--그룹멤버 상세-->
+	<select id="selectGroupMember" parameterType="groupMemberEntity" resultType="groupMemberEntity">
+		{call ProcGetGroupMember(#{userKey}, #{groupKey})}
+	</select>
+
+	<!-- 그룹멤버 인원수 -->
+	<select id="selectGroupMemberJoinListCount" parameterType="groupMemberEntity" resultType="int">
+		{call ProcGetGroupMemberListCount(#{groupKey}, #{memberStateCode})}
+	</select>
+
+</mapper>

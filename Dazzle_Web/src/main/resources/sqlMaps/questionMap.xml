@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.QuestionDAO">
+	<!-- 문제 리스트 카운트 -->
+	<select id="selectQuestionListCount" parameterType="questionEntity" resultType="long">
+		{call ProcGetQuestionListCount( #{questionType}, #{startDate}, #{endDate},
+										#{searchKey}, #{searchValue}, #{searchQuestionType},
+										#{classCodeType}, #{classCode}, #{userKey}, #{questionGrade} )}
+	</select>
+
+	<!-- 문제 리스트 -->
+	<select id="selectQuestionList" parameterType="questionEntity" resultType="questionEntity">
+		{call ProcGetQuestionList( #{questionType}, #{startDate}, #{endDate},
+									#{searchKey}, #{searchValue}, #{searchQuestionType}, #{classCodeType}, #{classCode},
+									#{userKey}, #{questionGrade}, #{currentPage}, #{pageGroupSize} )}
+	</select>
+
+	<!-- 내 문제 리스트 카운트 -->
+	<select id="selectQuestionListByUserKeyCount" parameterType="long" resultType="long">
+		{call ProcGetQuestionListByUserKeyCount( #{userKey} )}
+	</select>
+
+	<!-- 내 문제 리스트 -->
+	<select id="selectQuestionListByUserKey" parameterType="questionEntity" resultType="questionEntity">
+		{call ProcGetQuestionListByUserKey( #{userKey}, #{currentPage}, #{pageGroupSize} )}
+	</select>
+
+	<!-- 스크랩 리스트 카운트 -->
+	<select id="selectMyScrapListCount" parameterType="long" resultType="long">
+		{call ProcGetScrapQuestionListCount( #{userKey} )}
+	</select>
+
+	<!-- 스크랩 리스트 -->
+	<select id="selectMyScrapList" parameterType="questionEntity" resultType="questionEntity">
+		{call ProcGetScrapQuestionList( #{userKey}, #{currentPage}, #{pageGroupSize} )}
+	</select>
+
+	<!-- 문제 리스트 최신글 -->
+	<select id="selectQuestionRecentList" parameterType="long" resultType="questionEntity">
+		{call ProcGetQuestionRecentList( #{questionKey} )}
+	</select>
+
+	<!-- 문제 정보 -->
+	<select id="selectQuestion" parameterType="questionEntity" resultType="questionEntity">
+		{call ProcGetQuestion( #{questionKey}, #{userKey} )}
+	</select>
+
+	<!-- 문제 등록 -->
+	<insert id="insertQuestion" parameterType="questionEntity">
+		{call ProcAddQuestion( #{userKey}, #{groupKey}, #{questionContents}, #{questionTypeCode},
+								#{questionGrade}, #{questionTypeLarge}, #{exposeStartDate}, #{exposeEndDate} )}
+		<selectKey keyProperty="questionKey" resultType="long" order="AFTER">
+			SELECT @@IDENTITY
+		</selectKey>
+	</insert>
+
+	<!-- 문제 유형 수정 -->
+	<update id="updateQuestionType" parameterType="questionEntity">
+		{call ProcUpdateQuestionType(#{questionGrade}, #{questionTypeLarge}, #{questionTypeMedium},
+										#{questionTypeSmall}, #{questionTypeCategory}, #{questionKey} )}
+	</update>
+
+	<!-- 다Q문제 정보 수정 -->
+	<update id="updateDaqQuestion" parameterType="questionEntity">
+		{call ProcUpdateDaqQuestion( #{questionKey}, #{exposeStartDate}, #{exposeEndDate}, #{questionContents} )}
+	</update>
+
+	<!-- 문제 삭제 -->
+	<update id="deleteQuestion" parameterType="long">
+		{call ProcRemoveQuestion( #{questionKey} )}
+	</update>
+
+	<!-- 내 그룹문제 목록 -->
+	<select id="selectMyGroupQustionList" parameterType="groupEntity" resultType="questionEntity">
+		{call ProcGetMyGroupQuestionList( #{groupKey}, #{currentPage}, #{pageGroupSize} )}
+	</select>
+
+	<!-- 문제 작성 일주일 이내 기간 체크 -->
+	<select id="selectWithinWeekQuestion" parameterType="long" resultType="int">
+		{call ProcGetWithinWeekQuestion(#{questionKey})}
+	</select>
+</mapper>

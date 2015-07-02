@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.SmsSendDAO">
+	<!-- 일반 단문 발송 프로시져 -->
+    <insert id="sendSmsGeneral" parameterType="smsEntity">
+     	{ call Chunjae_SMS.dbo.SMS_Send
+     		(
+     		#{CId},
+     		#{DestAddr},
+     		#{CallBack},
+     		#{Msg},
+     		#{MsgType},
+     		#{ReservedTime},
+     		#{MsgID},
+     		#{DestName},
+     		#{Etc1},
+     		#{Etc2},
+     		#{Etc3}
+     		)
+     	}
+    </insert>
+
+    <!-- 리얼타임 발송 (인증문자 류) 프로시져 -->
+    <insert id="sendSmsConfirm" parameterType="smsEntity">
+     	{ call Chunjae_SMS.dbo.SMS5_Send
+     		(
+     		#{CId},
+     		#{DestAddr},
+     		#{CallBack},
+     		#{Msg},
+     		#{MsgType},
+     		#{ReservedTime},
+     		#{MsgID},
+     		#{DestName},
+     		#{Etc1},
+     		#{Etc2},
+     		#{Etc3}
+     		)
+     	}
+    </insert>
+
+    <!-- 장문(LMS) 발송 프로시져 -->
+    <insert id="sendSmsLMS" parameterType="smsEntity">
+     	{ call Chunjae_SMS.dbo.MMS_Send
+     		(
+     		#{CId},
+     		#{DestAddr},
+     		#{CallBack},
+     		#{MsgSubject},
+     		#{Msg},
+     		#{MsgType},
+     		#{ReservedTime},
+     		#{MsgID},
+     		#{DestName},
+     		#{Etc1},
+     		#{Etc2},
+     		#{Etc3}
+     		)
+     	}
+    </insert>
+</mapper>

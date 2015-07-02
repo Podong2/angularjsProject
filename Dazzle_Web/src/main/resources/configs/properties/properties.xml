@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<util:properties id="dbConfig">
+		<prop key="url">jdbc:sqlserver://dgoffice.iptime.org:1433;databaseName=Dazzle</prop>
+		<prop key="username">dazzle</prop>
+		<prop key="password">@ekwmf2913</prop>
+		<prop key="db_driver">com.microsoft.sqlserver.jdbc.SQLServerDriver</prop>
+	</util:properties>
+
+	<util:properties id="file_prop">
+		<prop key="filePath">/home/ahm/upload</prop>
+		<prop key="groupCoverPath">/home/ahm/upload/group_cover</prop>
+		<prop key="fileTempPath">/home/ahm/upload/temp</prop>
+	</util:properties>
+
+	<util:properties id="sms_prop">
+		<prop key="callBackNumber">070-4352-4569</prop>
+	</util:properties>
+	
+	<util:properties id="push_prop">
+		<prop key="gcm_api_key">AIzaSyBgUf2E261QSLCw6OLy5ZPvTiaTGPXrv3M</prop>
+		<prop key="apn_p12_key">/home/ahm/data/Dazzle.p12</prop>
+		<prop key="apn_p12_key_pw">@ekwmf2913</prop>
+		<prop key="apn_is_prod">false</prop>
+	</util:properties>
+</beans>

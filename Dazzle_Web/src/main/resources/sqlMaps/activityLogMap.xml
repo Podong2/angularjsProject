@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.ActivityLogDAO">
+
+	<!-- 활동로그 등록 -->
+	<insert id="insertActivityLog" parameterType="activityLogEntity">
+		{call ProcAddActivityLog( #{userKey}, #{groupKey}, #{activityScore}, #{activityTypeCode},
+								#{activityWords}, #{totalActivityScore}, #{commonKey} )}
+	</insert>
+
+	<!-- 활동로그 정보 가져오기 -->
+	<select id="selectActivityLog" parameterType="activityLogEntity" resultType="activityLogEntity">
+		{call ProcGetActivityLog( #{userKey}, #{groupKey} )}
+	</select>
+
+	<!-- 활동로그 목록 가져오기 -->
+	<select id="selectActivityLogList" parameterType="userEntity" resultType="activityLogEntity">
+		{call ProcGetActivityLogList ( #{userKey}, #{currentPage}, #{pageGroupSize})}
+	</select>
+
+	<!-- 오늘 등록된 활동점수 합계 가져오기(활동로그 타입별) -->
+	<select id="selectTodayActivityScore" parameterType="activityLogEntity" resultType="int">
+		{call ProcGetTodayActivityScore ( #{userKey}, #{activityTypeCode})}
+	</select>
+</mapper>

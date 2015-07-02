@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.UserDAO">
+  <!-- 회원 로그인 -->
+  <select id="getDoLogin" resultType="userEntity">
+    {call ProcDoLogin( #{id}, #{password}, #{loginType} )}
+  </select>
+
+  <!-- 관리자 비밀번호 변경 시 비밀번호 일치 확인 -->
+  <select id="selectPassword" parameterType="userEntity" resultType="int">
+    {call ProcGetPassword( #{userKey}, #{password} )}
+  </select>
+
+  <!-- 관리자 비밀번호 변경 -->
+  <update id="updateAdminPassword" parameterType="userEntity">
+    {call ProcUpdateAdminPassword( #{password}, #{userKey} )}
+  </update>
+
+  <!-- 관리자 페이지 회원수 Count -->
+  <select id="selectUserListCount" parameterType="userEntity" resultType="int">
+    {call ProcGetUserListCount( #{startDate}, #{endDate}, #{typeCode},
+                                           #{userGrade}, #{franchiseType}, #{searchKey}, #{searchValue}, #{stateCode}  )}
+  </select>
+
+  <!-- 관리자 페이지 회원 목록 가져오기 -->
+  <select id="selectUserList" parameterType="userEntity" resultType="userEntity">
+    {call ProcGetUserList( #{startDate}, #{endDate}, #{typeCode}, #{userGrade},
+                                      #{franchiseType}, #{searchKey}, #{searchValue}, #{arrayType},
+                                      #{currentPage}, #{pageGroupSize}, #{stateCode} )}
+  </select>
+
+  <!-- 유저 상세정보 가져오기 -->
+  <select id="selectUser" parameterType="long" resultType="userEntity">
+    {call ProcGetUser( #{userKey} )}
+  </select>
+
+  <!-- 관리자 페이지 유저정보 변경 -->
+  <update id="updateUser" parameterType="userEntity">
+    {call ProcUpdateUser( #{typeCode}, #{stateCode}, #{deleteDate}, #{userKey} )}
+  </update>
+
+  <!-- 유저 아이디 찾기 -->
+  <select id="userIdFind" parameterType="userEntity" resultType="userEntity">
+    {call ProcDoFindUser( #{phoneNumber}, #{name}, null )}
+  </select>
+
+  <!-- 유저 비밀번호 찾기 -->
+  <select id="userPasswordFind" parameterType="userEntity" resultType="userEntity">
+    {call ProcDoFindUser( #{phoneNumber}, #{name}, #{id} )}
+  </select>
+
+  <!-- 사용자 페이지 유저 임시 비밀번호 변경 -->
+  <update id="updateTempPassword" parameterType="userEntity">
+    {call ProcUpdateTempPassword( #{password}, #{userKey} )}
+  </update>
+
+  <!-- 휴대폰 중복확인 -->
+  <select id="phoneDuplication" parameterType="userEntity" resultType="int">
+    {call ProcDoCheckDupUserInfo( #{phoneNumber}, null )}
+  </select>
+
+  <!-- 회원가입 아이디 중복확인 -->
+  <select id="selectIdCheck" parameterType="userEntity" resultType="int">
+    {call ProcDoCheckDupUserInfo( null, #{id} )}
+  </select>
+
+  <!-- 회원가입 -->
+  <insert id="insertUser" parameterType="userEntity">
+    {call ProcAddUser( #{id}, #{password}, #{name}, #{phoneNumber} )}
+    <selectKey keyProperty="userKey" resultType="long" order="AFTER">
+      SELECT @@IDENTITY
+    </selectKey>
+  </insert>
+
+  <!-- 회원탈퇴 -->
+  <update id="updateUserWithdraw" parameterType="userEntity">
+  	{call ProcUpdateUserWithdraw(#{userKey})}
+  </update>
+
+  <!-- 회원 프로필 수정 -->
+  <update id="updateProfile" parameterType="userEntity">
+  	{call ProcUpdateProfile(#{name}, #{password}, #{phoneNumber}, #{franchiseType},
+  										#{userGrade}, #{userKey}, #{closedYn})}
+  </update>
+
+  <!-- 내정보 한줄토크 목록 -->
+  <select id="selectLineTalk" parameterType="userEntity" resultType="lineTalkEntity">
+    {call ProcGetUserMobile(#{userKey}, #{sessionUserKey}, #{currentPage}, #{pageGroupSize})}
+  </select>
+</mapper>

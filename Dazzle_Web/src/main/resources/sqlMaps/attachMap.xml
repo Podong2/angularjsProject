@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.AttachDAO">
+  <!-- 첨부 파일 등록 -->
+  <insert id="insertAttach" parameterType="attachEntity">
+    {call ProcAddAttach( #{commonKey}, #{fileName}, #{fileOrigName}, #{attachType} )}
+  </insert>
+
+  <!-- 기존 파일 삭제 -->
+  <update id="deleteFile">
+	{call ProcDeleteFile(#{attachKey})}
+  </update>
+
+  <!-- 이미지 가져오기 -->
+  <select id="selectAttachInfo" parameterType="attachEntity" resultType="attachEntity">
+  	{call ProcGetAttach( #{commonKey}, #{attachType} )}
+  </select>
+
+  <!-- 템플릿 이미지 가져오기 -->
+  <select id="selectTemplateImage" resultType="attachEntity">
+	{call ProcGetTemplateImage( )}
+  </select>
+</mapper>

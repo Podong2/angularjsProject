@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+  <settings>
+    <setting name="mapUnderscoreToCamelCase" value="true" />
+  </settings>
+  <typeAliases>
+    <typeAlias alias="activityScoreEntity" type="kr.co.chunjae.entities.user.ActivityScoreEntity"/>
+    <typeAlias alias="answerEntity" type="kr.co.chunjae.entities.question.AnswerEntity"/>
+    <typeAlias alias="answerReplyEntity" type="kr.co.chunjae.entities.question.AnswerReplyEntity"/>
+    <typeAlias alias="commonCodeEntity" type="kr.co.chunjae.entities.common.CommonCodeEntity"/>
+    <typeAlias alias="classCodeEntity" type="kr.co.chunjae.entities.question.ClassCodeEntity"/>
+    <typeAlias alias="groupEntity" type="kr.co.chunjae.entities.group.GroupEntity"/>
+    <typeAlias alias="groupMemberEntity" type="kr.co.chunjae.entities.group.GroupMemberEntity"/>
+    <typeAlias alias="lineTalkEntity" type="kr.co.chunjae.entities.board.LineTalkEntity"/>
+    <typeAlias alias="questionEntity" type="kr.co.chunjae.entities.question.QuestionEntity"/>
+    <typeAlias alias="userEntity" type="kr.co.chunjae.entities.user.UserEntity"/>
+    <typeAlias alias="activityLogEntity" type="kr.co.chunjae.entities.user.ActivityLogEntity"/>
+    <typeAlias alias="activityScoreEntity" type="kr.co.chunjae.entities.user.ActivityScoreEntity"/>
+    <typeAlias alias="gradeScoreEntity" type="kr.co.chunjae.entities.user.GradeScoreEntity"/>
+    <typeAlias alias="boardEntity" type="kr.co.chunjae.entities.board.BoardEntity"/>
+    <typeAlias alias="reportEntity" type="kr.co.chunjae.entities.question.ReportEntity"/>
+    <typeAlias alias="reportMemoEntity" type="kr.co.chunjae.entities.question.ReportMemoEntity"/>
+    <typeAlias alias="attachEntity" type="kr.co.chunjae.entities.AttachEntity"/>
+    <typeAlias alias="boardReplyEntity" type="kr.co.chunjae.entities.board.BoardReplyEntity"/>
+    <typeAlias alias="lineNoticeEntity" type="kr.co.chunjae.entities.board.LineNoticeEntity"/>
+    <typeAlias alias="smsEntity" type="kr.co.chunjae.entities.SmsEntity"/>
+    <typeAlias alias="scrapEntity" type="kr.co.chunjae.entities.question.ScrapEntity"/>
+    <typeAlias alias="lineTalkReplyEntity" type="kr.co.chunjae.entities.board.LineTalkReplyEntity"/>
+    <typeAlias alias="lineTalkLogEntity" type="kr.co.chunjae.entities.board.LineTalkLogEntity"/>
+    <typeAlias alias="likeEntity" type="kr.co.chunjae.entities.question.LikeEntity"/>
+    <typeAlias alias="franchiseEntity" type="kr.co.chunjae.entities.FranchiseEntity"/>
+    <typeAlias alias="groupInviteEntity" type="kr.co.chunjae.entities.group.GroupInviteEntity" />
+    <typeAlias alias="gradeEntity" type="kr.co.chunjae.entities.statistics.GradeEntity"/>
+    <typeAlias alias="rankingEntity" type="kr.co.chunjae.entities.RankingEntity"/>
+  </typeAliases>
+</configuration>

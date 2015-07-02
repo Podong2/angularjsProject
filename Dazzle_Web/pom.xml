@@ -1,0 +1,185 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>kr.co.digigroove</groupId>
+	<artifactId>Dazzle</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>Dazzle</name>
+
+	<parent>
+		<groupId>kr.co.digigroove</groupId>
+		<artifactId>DigiPomParent</artifactId>
+		<version>1.1-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>kr.co.digigroove</groupId>
+			<artifactId>DigiCommons</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-extras</artifactId>
+			<version>3.0.5</version>
+		</dependency>
+
+		<!-- Database -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.frameworkversion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.frameworkversion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.mybatis</groupId>
+					<artifactId>mybatis</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Database End -->
+		<!--gcm server lib-->
+		<dependency>
+			<groupId>com.google.android.gcm</groupId>
+			<artifactId>gcm-server</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.fernandospr</groupId>
+			<artifactId>javapns-jdk16</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+	</dependencies>
+
+	<!--gcm lib repository-->
+	<repositories>
+		<repository>
+			<id>gcm-server-repository</id>
+			<url>https://raw.githubusercontent.com/slorber/gcm-server-repository/master/releases/</url>
+		</repository>
+	</repositories>
+	
+	<build>
+		<finalName>ROOT</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18</version>
+				<configuration>
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<warName>ROOT</warName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>prod</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>copy-resources-real</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete>
+											<fileset dir="${project.build.directory}/classes/configs/properties">
+												<include name="properties.xml" />
+											</fileset>
+										</delete>
+										<move
+											file="${project.build.directory}/classes/configs/properties/properties_dev.xml"
+											tofile="${project.build.directory}/classes/configs/properties/properties.xml" />
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>real</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>copy-resources-real</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete>
+											<fileset dir="${project.build.directory}/classes/configs/properties">
+												<include name="properties.xml" />
+											</fileset>
+										</delete>
+										<move
+											file="${project.build.directory}/classes/configs/properties/properties_dev.xml"
+											tofile="${project.build.directory}/classes/configs/properties/properties.xml" />
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

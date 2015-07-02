@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.ReportMemoDAO">
+  <!-- 신고 메모 목록 카운트 -->
+  <select id="selectReportMemoListCount" parameterType="long" resultType="long">
+    {call ProcGetReportMemoListCount( #{reportKey} )}
+  </select>
+
+  <!-- 신고 메모 목록 -->
+  <select id="selectReportMemoList" parameterType="long" resultType="reportMemoEntity">
+    {call ProcGetReportMemoList( #{reportKey} )}
+  </select>
+
+  <!-- 신고 메모 등록 -->
+  <insert id="insertReportMemo" parameterType="reportMemoEntity">
+    {call ProcAddReportMemo( #{reportKey}, #{userKey}, #{memoContents} )}
+  </insert>
+
+  <!-- 신고 메모 삭제 -->
+  <update id="deleteReportMemo" parameterType="long">
+    {call ProcRemoveReportMemo( #{reportMemoKey} )}
+  </update>
+</mapper>

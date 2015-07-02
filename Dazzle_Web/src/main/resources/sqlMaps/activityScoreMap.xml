@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.ActivityScoreDAO">
+	<!-- 활동 점수 가져오기 -->
+	<select id="selectActivityScore" parameterType="String" resultType="activityScoreEntity">
+		{call ProcGetActivityScore ( #{code} )}
+	</select>
+</mapper>

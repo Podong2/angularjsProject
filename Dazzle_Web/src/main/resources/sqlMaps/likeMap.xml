@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.LikeDAO">
+   <!-- 문제/답글 좋아요 여부 확인 -->
+   <select id="selectIsLike" parameterType="likeEntity" resultType="int">
+     {call ProcGetIsLike( #{userKey}, #{questionKey}, #{answerKey}, #{likeYn} )}
+   </select>
+   <!-- 문제/답글 좋아요 정보 등록 -->
+   <insert id="insertLike" parameterType="likeEntity">
+     {call ProcAddLike( #{userKey}, #{questionKey}, #{answerKey},
+                                   #{questionTypeCode}, #{answerTypeCode}, #{likeYn} )}
+   </insert>
+   <!-- 문제/답글 좋아요 정보 수정 -->
+   <update id="updateLike" parameterType="likeEntity">
+     {call ProcUpdateLikeYn( #{userKey}, #{questionKey}, #{answerKey}, #{likeYn} )}
+   </update>
+</mapper>

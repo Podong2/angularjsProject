@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.SettingDAO">
+  <!-- 관리자 페이지 활동점수 목록 -->
+  <select id="selectActivityScoreList" resultType="activityScoreEntity">
+    {call ProcGetActivityScoreList( )}
+  </select>
+
+  <!-- 관리자 페이지 활동점수 설정 -->
+  <update id="updateActivityScoreList" parameterType="activityScoreEntity">
+    {call ProcUpdateActivityScoreList( #{userScore}, #{groupScore}, #{code} )}
+  </update>
+</mapper>

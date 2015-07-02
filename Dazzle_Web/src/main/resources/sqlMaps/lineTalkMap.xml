@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.chunjae.dao.LineTalkDAO">
+  <!-- 관리자 한줄토크 전송 -->
+  <insert id="inserTalk" parameterType="lineTalkEntity">
+    {call ProcAddTalk( #{userKey}, #{writerKey}, #{talkContents} )}
+    <selectKey keyProperty="talkKey" resultType="long" order="AFTER">
+      SELECT @@IDENTITY
+    </selectKey>
+  </insert>
+
+  <!-- 한줄토크댓글 작성 -->
+  <insert id="inserTalkReply" parameterType="lineTalkEntity">
+  	{call ProcAddLineTalkReply(#{talkKey},#{userKey},#{talkContents})}
+  </insert>
+
+  <!-- 한줄토크 댓글 목록 -->
+  <select id="lineTalkReplyList" parameterType="lineTalkReplyEntity" resultType="lineTalkReplyEntity">
+	{call ProcGetLineTalkReplyList( #{talkKey}, #{currentPage}, #{pageGroupSize} )}
+  </select>
+
+  <!-- 한줄토크 목록 -->
+  <select id="selectLineTalkEntity" parameterType="lineTalkEntity" resultType="lineTalkEntity">
+	{call ProcGetLineTalk( #{talkKey} )}
+  </select>
+
+  <!-- 한줄토크 로그 목록 -->
+  <select id="selectLineTalkLogList" parameterType="long" resultType="lineTalkLogEntity">
+	{call ProcGetLineTalkLogList( #{talkKey} )}
+  </select>
+
+  <!-- 한줄토크 로그값 읽음 수정 -->
+  <update id="updateLineTalkLog" parameterType="lineTalkLogEntity">
+  	{call ProcUpdateLineTalkLogRead( #{talkKey}, #{userKey} )}
+  </update>
+
+  <!-- 한줄토크 로그값 작성자 제외 안읽음 수정 -->
+  <update id="updateLineTalkLogNotRead" parameterType="lineTalkLogEntity">
+  	{call ProcupdateLineTalkLogNotRead( #{talkKey}, #{userKey} )}
+  </update>
+
+  <!-- 한줄토크 삭제 -->
+  <update id="deleteLineTalk" parameterType="lineTalkEntity">
+  	{call ProcDeleteLineTalk( #{talkKey} )}
+  </update>
+
+  <!-- 한줄토크 새로운 댓글러 로그 생성 -->
+  <insert id="insertLineTalkLog" parameterType="lineTalkLogEntity">
+  	{call ProcAddLineTalkLog(#{talkKey},#{userKey},#{readYn})}
+  </insert>
+
+</mapper>
